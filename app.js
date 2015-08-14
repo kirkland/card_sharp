@@ -9,9 +9,21 @@ $(function() {
     var key = e.which;
     if (key === 120) { // x
       current_scale = current_scale * 1.05;
-      set_scale(current_scale);
     } else if (key === 122) { // y
       current_scale = current_scale * 0.95;
+    }
+
+    set_scale(current_scale);
+  });
+
+  $(document).bind('mousewheel', function(e){
+    if ( e.ctrlKey ) {
+      if ( e.originalEvent.wheelDelta > 0 ) {
+        current_scale = current_scale * 1.05;
+      } else {
+        current_scale = current_scale * 0.95;
+      }
+
       set_scale(current_scale);
     }
   });
