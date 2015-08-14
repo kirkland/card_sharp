@@ -9,7 +9,7 @@ $(function() {
     var key = e.which;
     if (key === 120) { // x
       current_scale = current_scale * 1.05;
-    } else if (key === 122) { // y
+    } else if (key === 122) { // z
       current_scale = current_scale * 0.95;
     }
 
