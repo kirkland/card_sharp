@@ -5,22 +5,24 @@ function set_scale(new_scale) {
   $('body').css({ transform: 'scale(' + new_scale + ')' });
 }
 
+function body_width() {
+  return $('body').width() * current_scale;
+}
+
 function percent_distance_from_left_to_cursor(event) {
   var distance_from_left_to_cursor = event.originalEvent.screenX - $('body').position().left;
-  var body_width = $('body').width() * current_scale;
-  return distance_from_left_to_cursor / body_width;
+  return distance_from_left_to_cursor / body_width();
 }
 
 function zoom(delta) {
   if ( delta > 0 ) {
-    current_scale = current_scale * 1.05;
+    current_scale = current_scale * 1.01;
   } else {
-    current_scale = current_scale * 0.95;
+    current_scale = current_scale * 0.99;
   }
 
   set_scale(current_scale);
 }
-
 
 $(function() {
 
@@ -38,6 +40,9 @@ $(function() {
       var starting_percent_distance_from_left_to_cursor = percent_distance_from_left_to_cursor(e);
 
       zoom(delta);
+
+      // Now do a translate on body so that it gets back to the percent it was before
+      // The body width has changed
     }
   });
 });
