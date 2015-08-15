@@ -14,6 +14,14 @@ function percent_distance_from_left_to_cursor(event) {
   return distance_from_left_to_cursor / body_width();
 }
 
+function desired_distance_from_left_to_cursor(percent) {
+  return percent * body_width();
+}
+
+function body_left_offset_to_restore_percent(cursor_distance_from_left, percent) {
+  return  cursor_distance_from_left - desired_distance_from_left_to_cursor(percent);
+}
+
 function zoom(delta) {
   if ( delta > 0 ) {
     current_scale = current_scale * 1.01;
@@ -43,6 +51,12 @@ $(function() {
 
       // Now do a translate on body so that it gets back to the percent it was before
       // The body width has changed
+      // Now we want to change... something... to make percent_distance_from_left_to_cursor to be 
+      // the same as before.
+      // Well, we're not going to change the cursor position, so that leaves body's offset.
+
+      console.log('actual body offset', $('body').position().left);
+      console.log('desired body offset', body_left_offset_to_restore_percent(e.originalEvent.screenX, starting_percent_distance_from_left_to_cursor));
     }
   });
 });
