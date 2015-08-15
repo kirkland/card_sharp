@@ -1,0 +1,6 @@
+$('body').position() // returns { top: y, left: x }
+
+// Position of cursor during mouse wheel event
+event.screenX
+event.screenY
+

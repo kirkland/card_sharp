@@ -1,30 +1,43 @@
+debug_once = true
+current_scale = 1;
+
 function set_scale(new_scale) {
   $('body').css({ transform: 'scale(' + new_scale + ')' });
 }
 
+function percent_distance_from_left_to_cursor(event) {
+  var distance_from_left_to_cursor = event.originalEvent.screenX - $('body').position().left;
+  var body_width = $('body').width() * current_scale;
+  return distance_from_left_to_cursor / body_width;
+}
+
+function zoom(delta) {
+  if ( delta > 0 ) {
+    current_scale = current_scale * 1.05;
+  } else {
+    current_scale = current_scale * 0.95;
+  }
+
+  set_scale(current_scale);
+}
+
+
 $(function() {
-  var current_scale = 1;
-
-  $(document).keypress(function(e) {
-    var key = e.which;
-    if (key === 120) { // x
-      current_scale = current_scale * 1.05;
-    } else if (key === 122) { // z
-      current_scale = current_scale * 0.95;
-    }
-
-    set_scale(current_scale);
-  });
 
   $(document).bind('mousewheel', function(e){
+
     if ( e.ctrlKey ) {
-      if ( e.originalEvent.wheelDelta > 0 ) {
-        current_scale = current_scale * 1.05;
-      } else {
-        current_scale = current_scale * 0.95;
+      var delta = e.originalEvent.wheelDelta;
+
+      if ( debug_once || true ) {
+        console.log('cursor', e.originalEvent.screenX, e.originalEvent.screenY);
+        console.log('body', $('body').position().left, $('body').position().top);
+        debug_once = false;
       }
 
-      set_scale(current_scale);
+      var starting_percent_distance_from_left_to_cursor = percent_distance_from_left_to_cursor(e);
+
+      zoom(delta);
     }
   });
 });
