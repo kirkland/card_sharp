@@ -11,8 +11,8 @@ function set_scale(new_scale) {
   update_main_transform();
 }
 
-function set_translate_x(new_x) {
-  translate_x = new_x;
+function add_translate_x(new_x) {
+  translate_x = translate_x + new_x;
   update_main_transform();
 }
 
@@ -58,7 +58,7 @@ function react_to_mouse(wheel_delta, cursor_x) {
   console.log('actual', actual_distance_from_main_to_cursor);
 
 
-  set_translate_x(actual_distance_from_main_to_cursor - desired_distance_from_main_to_cursor);
+  add_translate_x(actual_distance_from_main_to_cursor - desired_distance_from_main_to_cursor);
 }
 
 $(function() {
