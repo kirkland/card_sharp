@@ -25,19 +25,10 @@ function percent_distance_from_main_to_cursor(cursor_x) {
   return distance_from_left_to_cursor / main_width();
 }
 
-function desired_distance_from_main_to_cursor(percent) {
-  return percent * main_width();
-}
-
-function main_left_offset_to_restore_percent(cursor_x, percent) {
-  var main_to_cursor = cursor_x - $('#main').position().left;
-  return desired_distance_from_main_to_cursor(percent) - main_to_cursor;
-}
-
 function zoom(delta) {
-  if ( delta > 0 ) {
+  if ( delta > 20 ) {
     current_scale = current_scale * 1.02;
-  } else {
+  } else if (delta < -20) {
     current_scale = current_scale * 0.98;
   }
 
@@ -49,12 +40,8 @@ function react_to_mouse(wheel_delta, cursor_x) {
 
   zoom(wheel_delta);
 
-//  var main_offset = main_left_offset_to_restore_percent(cursor_x, starting_percent_distance_from_main_to_cursor);
-
-
   desired_distance_from_main_to_cursor = starting_percent_distance_from_main_to_cursor * main_width();
   actual_distance_from_main_to_cursor = cursor_x - $('#main').position().left;
-
 
   add_translate_x(actual_distance_from_main_to_cursor - desired_distance_from_main_to_cursor);
 }
