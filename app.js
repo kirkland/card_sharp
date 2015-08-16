@@ -53,9 +53,7 @@ function react_to_mouse(wheel_delta, cursor_x) {
 
 
   desired_distance_from_main_to_cursor = starting_percent_distance_from_main_to_cursor * main_width();
-  console.log('desired', desired_distance_from_main_to_cursor);
   actual_distance_from_main_to_cursor = cursor_x - $('#main').position().left;
-  console.log('actual', actual_distance_from_main_to_cursor);
 
 
   add_translate_x(actual_distance_from_main_to_cursor - desired_distance_from_main_to_cursor);
