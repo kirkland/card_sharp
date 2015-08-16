@@ -20,7 +20,7 @@ function main_width() {
   return $('#main').width() * current_scale;
 }
 
-function percent_distance_from_left_to_cursor(cursor_x) {
+function percent_distance_from_main_to_cursor(cursor_x) {
   var distance_from_left_to_cursor = cursor_x - $('#main').position().left;
   return distance_from_left_to_cursor / main_width();
 }
@@ -45,7 +45,7 @@ function zoom(delta) {
 }
 
 function react_to_mouse(wheel_delta, cursor_x) {
-  var starting_percent_distance_from_left_to_cursor = percent_distance_from_left_to_cursor(cursor_x);
+  var starting_percent_distance_from_left_to_cursor = percent_distance_from_main_to_cursor(cursor_x);
   console.log('percent distance from main left to cursor', starting_percent_distance_from_left_to_cursor);
 
   zoom(wheel_delta);
@@ -59,7 +59,7 @@ function react_to_mouse(wheel_delta, cursor_x) {
   console.log('actual distance from main to cursor', cursor_x - $('#main').position().left);
 
   // Should match other log
-  console.log('new percent distance from main left to cursor', percent_distance_from_left_to_cursor(cursor_x));
+  console.log('new percent distance from main left to cursor', percent_distance_from_main_to_cursor(cursor_x));
 }
 
 $(function() {
