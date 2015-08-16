@@ -30,7 +30,7 @@ function desired_distance_from_left_to_cursor(percent) {
 }
 
 function main_left_offset_to_restore_percent(cursor_distance_from_left, percent) {
-  return cursor_distance_from_left - desired_distance_from_left_to_cursor(percent);
+  return desired_distance_from_left_to_cursor(percent) - cursor_distance_from_left ;
 }
 
 function zoom(delta) {
