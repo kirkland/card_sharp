@@ -44,14 +44,8 @@ function zoom(delta) {
 }
 
 $(function() {
-
   $(document).bind('mousewheel', function(e){
-
     var delta = e.originalEvent.wheelDelta;
-
-//    console.log('cursor', e.originalEvent.screenX, e.originalEvent.screenY);
-//    console.log('main', $('#main').position().left, $('#main').position().top);
-//    debug_once = false;
 
     var starting_percent_distance_from_left_to_cursor = percent_distance_from_left_to_cursor(e);
     console.log('percent distance from main left to cursor', starting_percent_distance_from_left_to_cursor);
