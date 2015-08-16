@@ -26,7 +26,7 @@ function percent_distance_from_left_to_cursor(cursor_x) {
 }
 
 function desired_distance_from_main_to_cursor(percent) {
-  console.log('desired distance', percent * main_width());
+  console.log('desired distance from main to cursor', percent * main_width());
   return percent * main_width();
 }
 
@@ -55,6 +55,8 @@ function react_to_mouse(wheel_delta, cursor_x) {
   console.log('desired main offset', main_offset);
 
   set_translate_x(main_offset);
+
+  console.log('actual distance from main to cursor', cursor_x - $('#main').position().left);
 
   // Should match other log
   console.log('new percent distance from main left to cursor', percent_distance_from_left_to_cursor(cursor_x));

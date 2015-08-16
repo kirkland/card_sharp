@@ -1,15 +1,15 @@
 body {
-  border: 1px red solid;
+/*  border: 1px red solid; */
 }
 
 #main {
-  border: 1px blue solid;
+/*  border: 1px blue solid; */
   height: 500px;
 }
 
 #card1 {
   position: absolute;
-  left: 100px;
+  left: 126.7px;
   top: 100px;
   border: 1px red solid;
   height: 100px;
