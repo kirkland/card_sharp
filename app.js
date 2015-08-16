@@ -1,4 +1,3 @@
-debug_once = true
 current_scale = 1;
 
 function set_scale(new_scale) {
@@ -6,7 +5,7 @@ function set_scale(new_scale) {
 }
 
 function main_width() {
-  return $('main').width() * current_scale;
+  return $('#main').width() * current_scale;
 }
 
 function percent_distance_from_left_to_cursor(event) {
@@ -19,7 +18,7 @@ function desired_distance_from_left_to_cursor(percent) {
 }
 
 function main_left_offset_to_restore_percent(cursor_distance_from_left, percent) {
-  return  cursor_distance_from_left - desired_distance_from_left_to_cursor(percent);
+  return cursor_distance_from_left - desired_distance_from_left_to_cursor(percent);
 }
 
 function zoom(delta) {
@@ -38,13 +37,12 @@ $(function() {
 
     var delta = e.originalEvent.wheelDelta;
 
-    if ( debug_once || true ) {
-      console.log('cursor', e.originalEvent.screenX, e.originalEvent.screenY);
-      console.log('main', $('#main').position().left, $('#main').position().top);
-      debug_once = false;
-    }
+//    console.log('cursor', e.originalEvent.screenX, e.originalEvent.screenY);
+//    console.log('main', $('#main').position().left, $('#main').position().top);
+//    debug_once = false;
 
     var starting_percent_distance_from_left_to_cursor = percent_distance_from_left_to_cursor(e);
+    console.log('percent distance from main left to cursor', starting_percent_distance_from_left_to_cursor);
 
     zoom(delta);
 
@@ -54,7 +52,10 @@ $(function() {
     // the same as before.
     // Well, we're not going to change the cursor position, so that leaves main's offset.
 
-    console.log('actual main offset', $('#main').position().left);
-    console.log('desired main offset', main_left_offset_to_restore_percent(e.originalEvent.screenX, starting_percent_distance_from_left_to_cursor));
+    console.log('distance fom left side to main', $('#main').position().left);
+    var main_offset = main_left_offset_to_restore_percent(e.originalEvent.screenX, starting_percent_distance_from_left_to_cursor);
+    console.log('desired main offset', main_offset);
+
+    $('#main').css({ transform: 'translateX(' +  main_offset + 'px)' })
   });
 });
