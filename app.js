@@ -1,7 +1,19 @@
 current_scale = 1;
+transform_scale = 1;
+translate_x = 0;
+
+function update_main_transform() {
+  $('#main').css({ transform: 'scale(' + transform_scale + ') translateX(' + translate_x + 'px)' });
+}
 
 function set_scale(new_scale) {
-  $('#main').css({ transform: 'scale(' + new_scale + ')' });
+  transform_scale = new_scale;
+  update_main_transform();
+}
+
+function set_translate_x(new_x) {
+  translate_x = new_x;
+  update_main_transform();
 }
 
 function main_width() {
@@ -56,6 +68,6 @@ $(function() {
     var main_offset = main_left_offset_to_restore_percent(e.originalEvent.screenX, starting_percent_distance_from_left_to_cursor);
     console.log('desired main offset', main_offset);
 
-    $('#main').css({ transform: 'translateX(' +  main_offset + 'px)' })
+    set_translate_x(main_offset);
   });
 });
