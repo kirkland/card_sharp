@@ -25,12 +25,13 @@ function percent_distance_from_left_to_cursor(cursor_x) {
   return distance_from_left_to_cursor / main_width();
 }
 
-function desired_distance_from_left_to_cursor(percent) {
+function desired_distance_from_main_to_cursor(percent) {
+  console.log('desired distance', percent * main_width());
   return percent * main_width();
 }
 
-function main_left_offset_to_restore_percent(cursor_distance_from_left, percent) {
-  return desired_distance_from_left_to_cursor(percent) - cursor_distance_from_left ;
+function main_left_offset_to_restore_percent(cursor_distance_from_left_of_window, percent) {
+  return desired_distance_from_main_to_cursor(percent) - cursor_distance_from_left_of_window;
 }
 
 function zoom(delta) {
@@ -49,17 +50,14 @@ function react_to_mouse(wheel_delta, cursor_x) {
 
   zoom(wheel_delta);
 
-  // Now do a translate on main so that it gets back to the percent it was before
-  // The main width has changed
-  // Now we want to change... something... to make percent_distance_from_left_to_cursor to be 
-  // the same as before.
-  // Well, we're not going to change the cursor position, so that leaves main's offset.
-
   console.log('distance fom left side to main', $('#main').position().left);
   var main_offset = main_left_offset_to_restore_percent(cursor_x, starting_percent_distance_from_left_to_cursor);
   console.log('desired main offset', main_offset);
 
   set_translate_x(main_offset);
+
+  // Should match other log
+  console.log('new percent distance from main left to cursor', percent_distance_from_left_to_cursor(cursor_x));
 }
 
 $(function() {
