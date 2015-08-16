@@ -43,25 +43,29 @@ function zoom(delta) {
   set_scale(current_scale);
 }
 
+function react_to_mouse(event) {
+  var delta = event.originalEvent.wheelDelta;
+
+  var starting_percent_distance_from_left_to_cursor = percent_distance_from_left_to_cursor(event);
+  console.log('percent distance from main left to cursor', starting_percent_distance_from_left_to_cursor);
+
+  zoom(delta);
+
+  // Now do a translate on main so that it gets back to the percent it was before
+  // The main width has changed
+  // Now we want to change... something... to make percent_distance_from_left_to_cursor to be 
+  // the same as before.
+  // Well, we're not going to change the cursor position, so that leaves main's offset.
+
+  console.log('distance fom left side to main', $('#main').position().left);
+  var main_offset = main_left_offset_to_restore_percent(event.originalEvent.screenX, starting_percent_distance_from_left_to_cursor);
+  console.log('desired main offset', main_offset);
+
+  set_translate_x(main_offset);
+}
+
 $(function() {
-  $(document).bind('mousewheel', function(e){
-    var delta = e.originalEvent.wheelDelta;
-
-    var starting_percent_distance_from_left_to_cursor = percent_distance_from_left_to_cursor(e);
-    console.log('percent distance from main left to cursor', starting_percent_distance_from_left_to_cursor);
-
-    zoom(delta);
-
-    // Now do a translate on main so that it gets back to the percent it was before
-    // The main width has changed
-    // Now we want to change... something... to make percent_distance_from_left_to_cursor to be 
-    // the same as before.
-    // Well, we're not going to change the cursor position, so that leaves main's offset.
-
-    console.log('distance fom left side to main', $('#main').position().left);
-    var main_offset = main_left_offset_to_restore_percent(e.originalEvent.screenX, starting_percent_distance_from_left_to_cursor);
-    console.log('desired main offset', main_offset);
-
-    set_translate_x(main_offset);
+  $(document).bind('mousewheel', function(event){
+    react_to_mouse(event);
   });
 });
