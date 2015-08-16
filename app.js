@@ -45,13 +45,13 @@ function zoom(delta) {
 }
 
 function react_to_mouse(wheel_delta, cursor_x) {
-  var starting_percent_distance_from_left_to_cursor = percent_distance_from_main_to_cursor(cursor_x);
-  console.log('percent distance from main left to cursor', starting_percent_distance_from_left_to_cursor);
+  var starting_percent_distance_from_main_to_cursor = percent_distance_from_main_to_cursor(cursor_x);
+  console.log('percent distance from main left to cursor', starting_percent_distance_from_main_to_cursor);
 
   zoom(wheel_delta);
 
   console.log('distance fom left side to main', $('#main').position().left);
-  var main_offset = main_left_offset_to_restore_percent(cursor_x, starting_percent_distance_from_left_to_cursor);
+  var main_offset = main_left_offset_to_restore_percent(cursor_x, starting_percent_distance_from_main_to_cursor);
   console.log('desired main offset', main_offset);
 
   set_translate_x(main_offset);
