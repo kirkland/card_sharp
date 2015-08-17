@@ -12,16 +12,6 @@ function setBodyScale(newBodyScale) {
   updateBodyTransform();
 }
 
-function setBodyTranslateX(newTranslateX) {
-  translateX = newTranslateX;
-  updateBodyTransform();
-}
-
-function setBodyTranslateY(newTranslateY) {
-  translateY = newTranslateY;
-  updateBodyTransform();
-}
-
 function zoom(directionIn) {
   if ( directionIn ) {
     setBodyScale(bodyScale * 1.02);
@@ -62,8 +52,9 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
   var topDesiredDistanceFromBodyToTarget = bodyHeight() * topPercentDistanceFromBodyToTarget;
   var topActualDistanceFromBodyToTarget = topDistanceFromBodyToTarget(targetY);
 
-  setBodyTranslateX(translateX + (leftActualDistanceFromBodyToTarget - leftDesiredDistanceFromBodyToTarget));
-  setBodyTranslateY(translateY + (topActualDistanceFromBodyToTarget - topDesiredDistanceFromBodyToTarget));
+  translateX = translateX + (leftActualDistanceFromBodyToTarget - leftDesiredDistanceFromBodyToTarget);
+  translateY = translateY + (topActualDistanceFromBodyToTarget - topDesiredDistanceFromBodyToTarget);
+  updateBodyTransform()
 }
 
 $(function() {
