@@ -17,6 +17,11 @@ function setBodyTranslateX(newTranslateX) {
   updateBodyTransform();
 }
 
+function setBodyTranslateY(newTranslateY) {
+  translateY = newTranslateY;
+  updateBodyTransform();
+}
+
 function zoom(directionIn) {
   if ( directionIn ) {
     setBodyScale(bodyScale * 1.02);
@@ -29,21 +34,36 @@ function bodyWidth() {
   return $('body').width() * bodyScale;
 }
 
+function bodyHeight() {
+  return $('body').height() * bodyScale;
+}
+
 function leftDistanceFromBodyToTarget(targetX) {
   var leftDistanceFromWindowToTarget = targetX;
   var leftDistanceFromWindowToBody = $('body').position().left;
   return leftDistanceFromWindowToTarget - leftDistanceFromWindowToBody;
 }
 
+function topDistanceFromBodyToTarget(targetY) {
+  var topDistanceFromWindowToTarget = targetY;
+  var topDistanceFromWindowToBody = $('body').position().top;
+  return topDistanceFromWindowToTarget - topDistanceFromWindowToBody;
+}
+
 function zoomAndTranslate(directionIn, targetX, targetY) {
   var leftPercentDistanceFromBodyToTarget = leftDistanceFromBodyToTarget(targetX) / bodyWidth();
-  console.log(leftPercentDistanceFromBodyToTarget);
+  var topPercentDistanceFromBodyToTarget = topDistanceFromBodyToTarget(targetY) / bodyHeight();
 
   zoom(directionIn);
 
   var leftDesiredDistanceFromBodyToTarget = bodyWidth() * leftPercentDistanceFromBodyToTarget;
   var leftActualDistanceFromBodyToTarget = leftDistanceFromBodyToTarget(targetX);
+
+  var topDesiredDistanceFromBodyToTarget = bodyHeight() * topPercentDistanceFromBodyToTarget;
+  var topActualDistanceFromBodyToTarget = topDistanceFromBodyToTarget(targetY);
+
   setBodyTranslateX(translateX + (leftActualDistanceFromBodyToTarget - leftDesiredDistanceFromBodyToTarget));
+  setBodyTranslateY(translateY + (topActualDistanceFromBodyToTarget - topDesiredDistanceFromBodyToTarget));
 }
 
 $(function() {
