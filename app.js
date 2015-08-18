@@ -57,7 +57,7 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
   var startingLeftPercentDistanceFromBodyToTarget = leftPercentDistanceFromBodyToTarget(targetX);
   var startingTopPercentDistanceFromBodyToTarget = topPercentDistanceFromBodyToTarget(targetY);
 
-  traceClick(targetX, targetY);
+//  traceClick(targetX, targetY);
 
   console.log("BEFORE ZOOM")
   console.log("starting percents:", startingLeftPercentDistanceFromBodyToTarget, startingTopPercentDistanceFromBodyToTarget);
@@ -83,7 +83,7 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
 }
 
 $(function() {
-  $(document).bind('mousewheel', function(event) {
+  $(document).bind('mousewheel DOMMouseScroll', function(event) {
     event.preventDefault();
 
     var originalEvent = event.originalEvent;
