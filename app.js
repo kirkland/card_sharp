@@ -93,6 +93,7 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
 
 $(function() {
   $('#main').height($('body').height());
+  $('#main').width($('body').width());
 
   $(document).bind('mousewheel DOMMouseScroll', function(event) {
     event.preventDefault();
