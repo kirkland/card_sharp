@@ -49,6 +49,12 @@ function topPercentDistanceFromBodyToTarget(targetY) {
 }
 
 function zoomAndTranslate(directionIn, targetX, targetY) {
+  targetX = (targetX - translateX) * bodyScale;
+  targetY = (targetY - translateY) * bodyScale;
+
+  $('#target').remove();
+  $('<div id="target" style="left: ' + targetX + 'px; top: ' + targetY + 'px;"></div>').appendTo('body');
+
   var startingLeftPercentDistanceFromBodyToTarget = leftPercentDistanceFromBodyToTarget(targetX);
   var startingTopPercentDistanceFromBodyToTarget = topPercentDistanceFromBodyToTarget(targetY);
 
