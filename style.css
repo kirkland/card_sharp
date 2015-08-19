@@ -1,13 +1,11 @@
-body {
-  border: 1px red solid;
-}
-
 #main {
-  border: 1px blue solid;
+  border: 1px red solid;
+  position: fixed;
+  width: 100%;
 }
 
 #target {
-  position: absolute;
+  position: fixed;
   border: 1px blue solid;
   height: 1px;
   width: 1px;

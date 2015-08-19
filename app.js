@@ -1,86 +1,85 @@
-bodyScale = 1;
+mainScale = 1;
 translateX = 0;
 translateY = 0;
 
-function updateBodyTransform() {
-  $('body').css({ transform: 'scale(' + bodyScale + ') translate(' + translateX + 'px, ' +
+function updateMainTransform() {
+  $('#main').css({ transform: 'scale(' + mainScale + ') translate(' + translateX + 'px, ' +
     translateY + 'px)' });
 }
 
-function setBodyScale(newBodyScale) {
-  bodyScale = newBodyScale;
-  updateBodyTransform();
+function setMainScale(newMainScale) {
+  mainScale = newMainScale;
+  updateMainTransform();
 }
 
 function zoom(directionIn) {
   if ( directionIn ) {
-    setBodyScale(bodyScale * 1.05);
+    setMainScale(mainScale * 1.05);
   } else {
-    setBodyScale(bodyScale * 0.95);
+    setMainScale(mainScale * 0.95);
   }
 }
 
-function bodyWidth() {
-  return $('body').width() * bodyScale;
+function mainWidth() {
+  return $('#main').width() * mainScale;
 }
 
-function bodyHeight() {
-  return $('body').height() * bodyScale;
+function mainHeight() {
+  return $('#main').height() * mainScale;
 }
 
-function leftDistanceFromBodyToTarget(targetX) {
+function leftDistanceFromMainToTarget(targetX) {
   var leftDistanceFromWindowToTarget = targetX;
-  var leftDistanceFromWindowToBody = $('body').position().left;
-  return leftDistanceFromWindowToTarget - leftDistanceFromWindowToBody;
+  var leftDistanceFromWindowToMain = $('#main').position().left;
+  return leftDistanceFromWindowToTarget - leftDistanceFromWindowToMain;
 }
 
-function topDistanceFromBodyToTarget(targetY) {
+function topDistanceFromMainToTarget(targetY) {
   var topDistanceFromWindowToTarget = targetY;
-  var topDistanceFromWindowToBody = $('body').position().top;
-  return topDistanceFromWindowToTarget - topDistanceFromWindowToBody;
+  var topDistanceFromWindowToMain = $('#main').position().top;
+  return topDistanceFromWindowToTarget - topDistanceFromWindowToMain;
 }
 
-function leftPercentDistanceFromBodyToTarget(targetX) {
-  return leftDistanceFromBodyToTarget(targetX) / bodyWidth();
+function leftPercentDistanceFromMainToTarget(targetX) {
+  return leftDistanceFromMainToTarget(targetX) / mainWidth();
 }
 
-function topPercentDistanceFromBodyToTarget(targetY) {
-  return topDistanceFromBodyToTarget(targetY) / bodyHeight();
+function topPercentDistanceFromMainToTarget(targetY) {
+  return topDistanceFromMainToTarget(targetY) / mainHeight();
 }
 
 function zoomAndTranslate(directionIn, targetX, targetY) {
-  targetX = (targetX - translateX) * bodyScale;
-  targetY = (targetY - translateY) * bodyScale;
-
   $('#target').remove();
   $('<div id="target" style="left: ' + targetX + 'px; top: ' + targetY + 'px;"></div>').appendTo('body');
 
-  var startingLeftPercentDistanceFromBodyToTarget = leftPercentDistanceFromBodyToTarget(targetX);
-  var startingTopPercentDistanceFromBodyToTarget = topPercentDistanceFromBodyToTarget(targetY);
+  var startingLeftPercentDistanceFromMainToTarget = leftPercentDistanceFromMainToTarget(targetX);
+  var startingTopPercentDistanceFromMainToTarget = topPercentDistanceFromMainToTarget(targetY);
 
-  console.log('starting percent distances', startingLeftPercentDistanceFromBodyToTarget, startingTopPercentDistanceFromBodyToTarget);
+  console.log('starting percent distances', startingLeftPercentDistanceFromMainToTarget, startingTopPercentDistanceFromMainToTarget);
 
   zoom(directionIn);
 
-  var leftDesiredDistanceFromBodyToTarget = bodyWidth() * startingLeftPercentDistanceFromBodyToTarget;
-  var leftActualDistanceFromBodyToTarget = leftDistanceFromBodyToTarget(targetX);
+  var leftDesiredDistanceFromMainToTarget = mainWidth() * startingLeftPercentDistanceFromMainToTarget;
+  var leftActualDistanceFromMainToTarget = leftDistanceFromMainToTarget(targetX);
 
-  var topDesiredDistanceFromBodyToTarget = bodyHeight() * startingTopPercentDistanceFromBodyToTarget;
-  var topActualDistanceFromBodyToTarget = topDistanceFromBodyToTarget(targetY);
+  var topDesiredDistanceFromMainToTarget = mainHeight() * startingTopPercentDistanceFromMainToTarget;
+  var topActualDistanceFromMainToTarget = topDistanceFromMainToTarget(targetY);
 
-  translateX = translateX + (leftActualDistanceFromBodyToTarget - leftDesiredDistanceFromBodyToTarget);
-  translateY = translateY + (topActualDistanceFromBodyToTarget - topDesiredDistanceFromBodyToTarget);
+  translateX = translateX + (leftActualDistanceFromMainToTarget - leftDesiredDistanceFromMainToTarget);
+  translateY = translateY + (topActualDistanceFromMainToTarget - topDesiredDistanceFromMainToTarget);
 
   // What's wrong with this?
-//  translateX = targetX - leftDesiredDistanceFromBodyToTarget;
-//  translateY = targetY - topDesiredDistanceFromBodyToTarget;
+//  translateX = targetX - leftDesiredDistanceFromMainToTarget;
+//  translateY = targetY - topDesiredDistanceFromMainToTarget;
 
-  updateBodyTransform()
+  updateMainTransform()
 
-  console.log('ending percent distances', leftPercentDistanceFromBodyToTarget(targetX), topPercentDistanceFromBodyToTarget(targetY));
+  console.log('ending percent distances', leftPercentDistanceFromMainToTarget(targetX), topPercentDistanceFromMainToTarget(targetY));
 }
 
 $(function() {
+  $('#main').height($('body').height());
+
   $(document).bind('mousewheel DOMMouseScroll', function(event) {
     event.preventDefault();
 
