@@ -64,6 +64,11 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
 
   translateX = translateX + (leftActualDistanceFromBodyToTarget - leftDesiredDistanceFromBodyToTarget);
   translateY = translateY + (topActualDistanceFromBodyToTarget - topDesiredDistanceFromBodyToTarget);
+
+  // What's wrong with this?
+//  translateX = targetX - leftDesiredDistanceFromBodyToTarget;
+//  translateY = targetY - topDesiredDistanceFromBodyToTarget;
+
   updateBodyTransform()
 
   console.log('ending percent distances', leftPercentDistanceFromBodyToTarget(targetX), topPercentDistanceFromBodyToTarget(targetY));
@@ -74,6 +79,7 @@ $(function() {
     event.preventDefault();
 
     var originalEvent = event.originalEvent;
+    console.log(originalEvent);
     zoomAndTranslate(originalEvent.wheelDelta > 0, originalEvent.clientX, originalEvent.clientY);
   });
 });
