@@ -14,9 +14,9 @@ function setBodyScale(newBodyScale) {
 
 function zoom(directionIn) {
   if ( directionIn ) {
-    setBodyScale(bodyScale * 1.02);
+    setBodyScale(bodyScale * 1.05);
   } else {
-    setBodyScale(bodyScale * 0.98);
+    setBodyScale(bodyScale * 0.95);
   }
 }
 
@@ -45,12 +45,14 @@ function leftPercentDistanceFromBodyToTarget(targetX) {
 }
 
 function topPercentDistanceFromBodyToTarget(targetY) {
-  return topDistanceFromBodyToTarget(targetY) / bodyWidth();
+  return topDistanceFromBodyToTarget(targetY) / bodyHeight();
 }
 
 function zoomAndTranslate(directionIn, targetX, targetY) {
   var startingLeftPercentDistanceFromBodyToTarget = leftPercentDistanceFromBodyToTarget(targetX);
   var startingTopPercentDistanceFromBodyToTarget = topPercentDistanceFromBodyToTarget(targetY);
+
+  console.log('starting percent distances', startingLeftPercentDistanceFromBodyToTarget, startingTopPercentDistanceFromBodyToTarget);
 
   zoom(directionIn);
 
@@ -64,6 +66,7 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
   translateY = translateY + (topActualDistanceFromBodyToTarget - topDesiredDistanceFromBodyToTarget);
   updateBodyTransform()
 
+  console.log('ending percent distances', leftPercentDistanceFromBodyToTarget(targetX), topPercentDistanceFromBodyToTarget(targetY));
 }
 
 $(function() {
