@@ -1,10 +1,42 @@
 mainScale = 1;
-translateX = 0;
-translateY = 0;
+translate = [0, 0];
+
+function subtractArrays(firstArray, secondArray) {
+  var i = 0;
+  var rv = []
+
+  for ( i = 0; i < firstArray.length; i++ ) {
+    rv.push(firstArray[i] - secondArray[i]);
+  }
+
+  return rv;
+}
+
+function divideArrays(firstArray, secondArray) {
+  var i = 0;
+  var rv = []
+
+  for ( i = 0; i < firstArray.length; i++ ) {
+    rv.push(firstArray[i] / secondArray[i]);
+  }
+
+  return rv;
+}
+
+function multiplyArrays(firstArray, secondArray) {
+  var i = 0;
+  var rv = []
+
+  for ( i = 0; i < firstArray.length; i++ ) {
+    rv.push(firstArray[i] * secondArray[i]);
+  }
+
+  return rv;
+}
 
 function updateMainTransform() {
-  $('#main').css({ transform: 'scale(' + mainScale + ') translate(' + translateX + 'px, ' +
-    translateY + 'px)' });
+  $('#main').css({ transform: 'scale(' + mainScale + ') translate(' + translate[0] + 'px, ' +
+    translate[1] + 'px)' });
 }
 
 function setMainScale(newMainScale) {
@@ -20,57 +52,43 @@ function zoom(directionIn) {
   }
 }
 
-function mainPosition() {
+function mainDimensions() {
   return [$('#main').width() * mainScale, $('#main').height() * mainScale];
 }
 
-function leftDistanceFromMainToTarget() {
-  var leftDistanceFromWindowToTarget = $('#target').position().left;
-  var leftDistanceFromWindowToMain = $('#main').position().left;
-  return leftDistanceFromWindowToTarget - leftDistanceFromWindowToMain;
+function mainPosition() {
+  return [$('#main').position().left, $('#main').position().top];
 }
 
-function topDistanceFromMainToTarget() {
-  var topDistanceFromWindowToTarget = $('#target').position().top;
-  var topDistanceFromWindowToMain = $('#main').position().top;
-  return topDistanceFromWindowToTarget - topDistanceFromWindowToMain;
+function targetPosition() {
+  return [$('#target').position().left, $('#target').position().top];
 }
 
-function leftPercentDistanceFromMainToTarget() {
-  return leftDistanceFromMainToTarget() / mainPosition()[0];
+function mainToTarget() {
+  return subtractArrays(targetPosition(), mainPosition());
 }
 
-function topPercentDistanceFromMainToTarget() {
-  return topDistanceFromMainToTarget() / mainPosition()[1];
+function percentMainToTarget() {
+  return divideArrays(mainToTarget(), mainDimensions());
 }
 
 function zoomAndTranslate(directionIn, targetX, targetY) {
   $('#target').remove();
   $('<div id="target" style="left: ' + targetX + 'px; top: ' + targetY + 'px;"></div>').appendTo('body');
 
-  var startingLeftPercentDistanceFromMainToTarget = leftPercentDistanceFromMainToTarget();
-  var startingTopPercentDistanceFromMainToTarget = topPercentDistanceFromMainToTarget();
+  var startingPercentMainToTarget = percentMainToTarget();
 
-  console.log('starting percent distances', startingLeftPercentDistanceFromMainToTarget, startingTopPercentDistanceFromMainToTarget);
+  console.log('starting percent distances', startingPercentMainToTarget);
 
   zoom(directionIn);
 
-  var leftDesiredDistanceFromMainToTarget = mainPosition()[0] * startingLeftPercentDistanceFromMainToTarget;
-  var leftActualDistanceFromMainToTarget = leftDistanceFromMainToTarget();
+  var desiredMainToTarget = multiplyArrays(mainPosition(), startingPercentMainToTarget);
 
-  var topDesiredDistanceFromMainToTarget = mainPosition()[1] * startingTopPercentDistanceFromMainToTarget;
-  var topActualDistanceFromMainToTarget = topDistanceFromMainToTarget();
+  translate = subtractArrays(targetPosition(), desiredMainToTarget);
 
-  translateX = translateX + (leftActualDistanceFromMainToTarget - leftDesiredDistanceFromMainToTarget);
-  translateY = translateY + (topActualDistanceFromMainToTarget - topDesiredDistanceFromMainToTarget);
+  updateMainTransform();
 
-  // What's wrong with this?
-//  translateX = targetX - leftDesiredDistanceFromMainToTarget;
-//  translateY = targetY - topDesiredDistanceFromMainToTarget;
-
-  updateMainTransform()
-
-  console.log('ending percent distances', leftPercentDistanceFromMainToTarget(), topPercentDistanceFromMainToTarget());
+  console.log('ending percent distances', percentMainToTarget());
 }
 
 $(function() {
