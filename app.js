@@ -1,5 +1,6 @@
 mainScale = 1;
 position = [0, 0];
+target = [0, 0];
 
 function subtractArrays(firstArray, secondArray) {
   var i = 0;
@@ -45,9 +46,9 @@ function setMainScale(newMainScale) {
 
 function zoom(directionIn) {
   if ( directionIn ) {
-    setMainScale(mainScale * 1.05);
+    setMainScale(mainScale * 1.04);
   } else {
-    setMainScale(mainScale * 0.95);
+    setMainScale(mainScale * 0.96);
   }
 }
 
@@ -59,12 +60,8 @@ function mainPosition() {
   return [$('#main').position().left, $('#main').position().top];
 }
 
-function targetPosition() {
-  return [$('#target').position().left, $('#target').position().top];
-}
-
 function mainToTarget() {
-  return subtractArrays(targetPosition(), mainPosition());
+  return subtractArrays(target, mainPosition());
 }
 
 function percentMainToTarget() {
@@ -72,11 +69,9 @@ function percentMainToTarget() {
 }
 
 function zoomAndPosition(directionIn, targetX, targetY) {
-  $('#target').remove();
-  $('<div id="target" style="left: ' + targetX + 'px; top: ' + targetY + 'px;"></div>').appendTo('body');
+  target = [targetX, targetY];
 
   var startingPercentMainToTarget = percentMainToTarget();
-  console.log('startingPercentMainToTarget', startingPercentMainToTarget);
 
   zoom(directionIn);
 
@@ -88,9 +83,6 @@ function zoomAndPosition(directionIn, targetX, targetY) {
   position[1] += addToPosition[1];
 
   updateMainTransform();
-
-  console.log('desiredMainToTarget', desiredMainToTarget);
-  console.log('currentMainToTarget', mainToTarget());
 }
 
 $(function() {
