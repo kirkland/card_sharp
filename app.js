@@ -1,5 +1,5 @@
 mainScale = 1;
-translate = [0, 0];
+position = [0, 0];
 
 function subtractArrays(firstArray, secondArray) {
   var i = 0;
@@ -35,8 +35,7 @@ function multiplyArrays(firstArray, secondArray) {
 }
 
 function updateMainTransform() {
-  $('#main').css({ transform: 'scale(' + mainScale + ') translate(' + translate[0] + 'px, ' +
-    translate[1] + 'px)' });
+  $('#main').css({ transform: 'scale(' + mainScale + ')', left: position[0] + 'px', top: position[1] + 'px' });
 }
 
 function setMainScale(newMainScale) {
@@ -72,7 +71,7 @@ function percentMainToTarget() {
   return divideArrays(mainToTarget(), mainDimensions());
 }
 
-function zoomAndTranslate(directionIn, targetX, targetY) {
+function zoomAndPosition(directionIn, targetX, targetY) {
   $('#target').remove();
   $('<div id="target" style="left: ' + targetX + 'px; top: ' + targetY + 'px;"></div>').appendTo('body');
 
@@ -84,9 +83,9 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
   var desiredMainToTarget = multiplyArrays(mainDimensions(), startingPercentMainToTarget);
   var currentMainToTarget = mainToTarget();
 
-  var addToTranslate = subtractArrays(currentMainToTarget, desiredMainToTarget);
-  translate[0] += addToTranslate[0];
-  translate[1] += addToTranslate[1];
+  var addToPosition = subtractArrays(currentMainToTarget, desiredMainToTarget);
+  position[0] += addToPosition[0];
+  position[1] += addToPosition[1];
 
   updateMainTransform();
 
@@ -102,6 +101,6 @@ $(function() {
     event.preventDefault();
 
     var originalEvent = event.originalEvent;
-    zoomAndTranslate(originalEvent.wheelDelta > 0, originalEvent.clientX, originalEvent.clientY);
+    zoomAndPosition(originalEvent.wheelDelta > 0, originalEvent.clientX, originalEvent.clientY);
   });
 });
