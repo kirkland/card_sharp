@@ -77,11 +77,11 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
   $('<div id="target" style="left: ' + targetX + 'px; top: ' + targetY + 'px;"></div>').appendTo('body');
 
   var startingPercentMainToTarget = percentMainToTarget();
+  console.log('startingPercentMainToTarget', startingPercentMainToTarget);
 
   zoom(directionIn);
 
   var desiredMainToTarget = multiplyArrays(mainDimensions(), startingPercentMainToTarget);
-
   var currentMainToTarget = mainToTarget();
 
   var addToTranslate = subtractArrays(currentMainToTarget, desiredMainToTarget);
@@ -89,6 +89,9 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
   translate[1] += addToTranslate[1];
 
   updateMainTransform();
+
+  console.log('desiredMainToTarget', desiredMainToTarget);
+  console.log('currentMainToTarget', mainToTarget());
 }
 
 $(function() {
