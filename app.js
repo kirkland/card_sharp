@@ -78,17 +78,20 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
 
   var startingPercentMainToTarget = percentMainToTarget();
 
-  console.log('starting percent distances', startingPercentMainToTarget);
-
   zoom(directionIn);
 
-  var desiredMainToTarget = multiplyArrays(mainPosition(), startingPercentMainToTarget);
+  var desiredMainToTarget = multiplyArrays(mainDimensions(), startingPercentMainToTarget);
+  console.log('desiredMainToTarget', desiredMainToTarget);
 
-  translate = subtractArrays(targetPosition(), desiredMainToTarget);
+  var currentMainToTarget = mainToTarget();
+
+  var addToTranslate = subtractArrays(currentMainToTarget, desiredMainToTarget);
+  translate[0] += addToTranslate[0];
+  translate[1] += addToTranslate[1];
+
+  console.log('translate', translate);
 
   updateMainTransform();
-
-  console.log('ending percent distances', percentMainToTarget());
 }
 
 $(function() {
