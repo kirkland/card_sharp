@@ -81,15 +81,12 @@ function zoomAndTranslate(directionIn, targetX, targetY) {
   zoom(directionIn);
 
   var desiredMainToTarget = multiplyArrays(mainDimensions(), startingPercentMainToTarget);
-  console.log('desiredMainToTarget', desiredMainToTarget);
 
   var currentMainToTarget = mainToTarget();
 
   var addToTranslate = subtractArrays(currentMainToTarget, desiredMainToTarget);
   translate[0] += addToTranslate[0];
   translate[1] += addToTranslate[1];
-
-  console.log('translate', translate);
 
   updateMainTransform();
 }
@@ -102,7 +99,6 @@ $(function() {
     event.preventDefault();
 
     var originalEvent = event.originalEvent;
-    console.log(originalEvent);
     zoomAndTranslate(originalEvent.wheelDelta > 0, originalEvent.clientX, originalEvent.clientY);
   });
 });
