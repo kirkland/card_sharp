@@ -1,5 +1,7 @@
-(function($) {
-  var mainScale = 1;
+zoom = (function($) {
+  var my = {}
+  my.mainScale = 1;
+
   var position = [0, 0];
   var target = [0, 0];
 
@@ -37,24 +39,24 @@
   }
 
   function updateMainTransform() {
-    $('#main').css({ transform: 'scale(' + mainScale + ')', left: position[0] + 'px', top: position[1] + 'px' });
+    $('#main').css({ transform: 'scale(' + my.mainScale + ')', left: position[0] + 'px', top: position[1] + 'px' });
   }
 
   function setMainScale(newMainScale) {
-    mainScale = newMainScale;
+    my.mainScale = newMainScale;
     updateMainTransform();
   }
 
   function zoom(directionIn) {
     if ( directionIn ) {
-      setMainScale(mainScale * 1.04);
+      setMainScale(my.mainScale * 1.04);
     } else {
-      setMainScale(mainScale * 0.96);
+      setMainScale(my.mainScale * 0.96);
     }
   }
 
   function mainDimensions() {
-    return [$('#main').width() * mainScale, $('#main').height() * mainScale];
+    return [$('#main').width() * my.mainScale, $('#main').height() * my.mainScale];
   }
 
   function mainPosition() {
@@ -97,4 +99,6 @@
       zoomAndPosition(originalEvent.wheelDelta > 0, originalEvent.clientX, originalEvent.clientY);
     });
   });
+
+  return my;
 }($));
