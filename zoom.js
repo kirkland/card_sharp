@@ -1,4 +1,4 @@
-(function() {
+(function($) {
   var mainScale = 1;
   var position = [0, 0];
   var target = [0, 0];
@@ -97,4 +97,4 @@
       zoomAndPosition(originalEvent.wheelDelta > 0, originalEvent.clientX, originalEvent.clientY);
     });
   });
-}());
+}($));
