@@ -3,7 +3,7 @@
 
 // Necessary if zoom is not being used
 if (typeof zoom === 'undefined') {
-  zoom = { mainScale: 1 };
+  zoom = { scale: 1 };
 }
 
 (function($, zoom) {
@@ -15,10 +15,10 @@ if (typeof zoom === 'undefined') {
       },
       drag: function(event, ui) {
         var changeLeft = ui.position.left - ui.originalPosition.left;
-        var newLeft = ui.originalPosition.left + changeLeft / (( zoom.mainScale));
+        var newLeft = ui.originalPosition.left + changeLeft / (( zoom.scale));
 
         var changeTop = ui.position.top - ui.originalPosition.top;
-        var newTop = ui.originalPosition.top + changeTop / zoom.mainScale;
+        var newTop = ui.originalPosition.top + changeTop / zoom.scale;
 
         ui.position.left = newLeft;
         ui.position.top = newTop;

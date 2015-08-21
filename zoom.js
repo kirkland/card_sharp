@@ -1,6 +1,6 @@
 zoom = (function($) {
   var my = {}
-  my.mainScale = 1;
+  my.scale = 1;
 
   var position = [0, 0];
   var target = [0, 0];
@@ -39,24 +39,24 @@ zoom = (function($) {
   }
 
   function updateMainTransform() {
-    $('#main').css({ transform: 'scale(' + my.mainScale + ')', left: position[0] + 'px', top: position[1] + 'px' });
+    $('#main').css({ transform: 'scale(' + my.scale + ')', left: position[0] + 'px', top: position[1] + 'px' });
   }
 
   function setMainScale(newMainScale) {
-    my.mainScale = newMainScale;
+    my.scale = newMainScale;
     updateMainTransform();
   }
 
   function zoom(directionIn) {
     if ( directionIn ) {
-      setMainScale(my.mainScale * 1.04);
+      setMainScale(my.scale * 1.04);
     } else {
-      setMainScale(my.mainScale * 0.96);
+      setMainScale(my.scale * 0.96);
     }
   }
 
   function mainDimensions() {
-    return [$('#main').width() * my.mainScale, $('#main').height() * my.mainScale];
+    return [$('#main').width() * my.scale, $('#main').height() * my.scale];
   }
 
   function mainPosition() {
