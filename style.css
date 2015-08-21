@@ -3,13 +3,6 @@
   position: fixed;
 }
 
-#target {
-  position: fixed;
-  border: 1px blue solid;
-  height: 1px;
-  width: 1px;
-}
-
 #card1 {
   position: absolute;
   left: 100px;
