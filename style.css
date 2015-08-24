@@ -3,6 +3,11 @@
   position: absolute;
 }
 
+#main-drag {
+  border: 1px blue solid;
+  position: absolute;
+}
+
 .card {
   position: absolute;
   height: 100px;

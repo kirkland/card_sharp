@@ -10,7 +10,7 @@ if (typeof zoom === 'undefined') {
 
 (function($, zoom) {
   $(function() {
-    $('.card').draggable({
+    $('.card, #main-drag').draggable({
       start: function(event, ui) {
         ui.position.left = 0;
         ui.position.top = 0;
