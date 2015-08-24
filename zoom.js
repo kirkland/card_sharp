@@ -89,8 +89,8 @@ zoom = (function($) {
   }
 
   $(function() {
-    $('#main, #main-drag').height($('body').height());
-    $('#main, #main-drag').width($('body').width());
+    $('#main').height($('body').height());
+    $('#main').width($('body').width());
 
     $(document).bind('mousewheel DOMMouseScroll', function(event) {
       event.preventDefault();

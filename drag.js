@@ -28,4 +28,10 @@ if (typeof zoom === 'undefined') {
       }
     });
   });
+
+  $(function() {
+    $('#main-drag').height($('body').height());
+    $('#main-drag').width($('body').width());
+  });
+
 }($, zoom));
