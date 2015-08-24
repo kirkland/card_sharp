@@ -8,8 +8,10 @@
 }
 
 #main-drag-handle {
-  border: 1px orange solid;
+  border: 5px orange solid;
   position: fixed;
+  top: 0px;
+  left: 0px;
 }
 
 .card {

@@ -31,11 +31,10 @@ if (typeof zoom === 'undefined') {
 
       stop: function(event, ui) {
         // Set main-drag dimensions to match body
-        $('#main-drag-handle').width($('body').width() / zoom.scale * 0.90);
-        $('#main-drag-handle').height($('body').height() / zoom.scale * 0.90);
+        $('#main-drag-handle').width($('body').width() / zoom.scale);
+        $('#main-drag-handle').height($('body').height() / zoom.scale);
 
-        // TODO: Try setting top and left to offset top and left on #main
-        $('#main-drag-handle').css({top: 0, left: 0, transform: 'scale(' + (1 / zoom.scale) + ')'});
+        $('#main-drag-handle').css({top: 0 - $('#main').position().top, left: 0 - $('#main').position().left, transform: 'scale(' + (1 / zoom.scale) + ')'});
       }
     });
 
