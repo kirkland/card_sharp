@@ -1,31 +1,26 @@
 #main {
   border: 1px red solid;
-  position: fixed;
+  position: absolute;
+}
+
+.card {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border: 1px red solid;
 }
 
 #card1 {
-  position: absolute;
   left: 100px;
   top: 100px;
-  border: 1px red solid;
-  height: 100px;
-  width: 100px;
 }
 
 #card2 {
-  position: absolute;
   left: 300px;
   top: 100px;
-  border: 1px red solid;
-  height: 100px;
-  width: 100px;
 }
 
 #card3 {
-  position: absolute;
   left: 300px;
   top: 300px;
-  border: 1px red solid;
-  height: 100px;
-  width: 100px;
 }
