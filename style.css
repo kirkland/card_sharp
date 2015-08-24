@@ -3,8 +3,13 @@
 }
 
 #main-drag {
-  border: 1px blue solid;
+/*  border: 1px blue solid; */
   position: absolute;
+}
+
+#main-drag-handle {
+  border: 1px orange solid;
+  position: fixed;
 }
 
 .card {

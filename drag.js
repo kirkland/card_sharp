@@ -10,7 +10,9 @@ if (typeof zoom === 'undefined') {
 
 (function($, zoom) {
   $(function() {
-    $('.card, #main-drag').draggable({
+    $('#main-drag').draggable({
+      handle: '#main-drag-handle',
+
       start: function(event, ui) {
         ui.position.left = 0;
         ui.position.top = 0;
@@ -25,13 +27,40 @@ if (typeof zoom === 'undefined') {
 
         ui.position.left = newLeft;
         ui.position.top = newTop;
+      },
+
+      stop: function(event, ui) {
+        // Set main-drag dimensions to match body
+        $('#main-drag-handle').width($('body').width() / zoom.scale * 0.90);
+        $('#main-drag-handle').height($('body').height() / zoom.scale * 0.90);
+
+        // TODO: Try setting top and left to offset top and left on #main
+        $('#main-drag-handle').css({top: 0, left: 0, transform: 'scale(' + (1 / zoom.scale) + ')'});
       }
+    });
+
+    $('.card').draggable({
+      start: function(event, ui) {
+        ui.position.left = 0;
+        ui.position.top = 0;
+      },
+
+      drag: function(event, ui) {
+        var changeLeft = ui.position.left - ui.originalPosition.left;
+        var newLeft = ui.originalPosition.left + changeLeft / zoom.scale;
+
+        var changeTop = ui.position.top - ui.originalPosition.top;
+        var newTop = ui.originalPosition.top + changeTop / zoom.scale;
+
+        ui.position.left = newLeft;
+        ui.position.top = newTop;
+      },
     });
   });
 
   $(function() {
-    $('#main-drag').height($('body').height());
-    $('#main-drag').width($('body').width());
+    $('#main-drag, #main-drag-handle').height($('body').height());
+    $('#main-drag, #main-drag-handle').width($('body').width());
   });
 
 }($, zoom));
