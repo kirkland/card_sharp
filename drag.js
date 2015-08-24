@@ -30,11 +30,14 @@ if (typeof zoom === 'undefined') {
       },
 
       stop: function(event, ui) {
-        // Set main-drag dimensions to match body
         $('#main-drag-handle').width($('body').width() / zoom.scale);
         $('#main-drag-handle').height($('body').height() / zoom.scale);
 
-        $('#main-drag-handle').css({top: 0 - $('#main').position().top, left: 0 - $('#main').position().left, transform: 'scale(' + (1 / zoom.scale) + ')'});
+        var unscale = 1 / zoom.scale;
+        var resetLeft = $('#main').position().left;
+        var resetTop = $('#main').position().top;
+
+        $('#main-drag-handle').css({top: resetTop, left: resetLeft});
       }
     });
 
