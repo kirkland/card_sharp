@@ -34,10 +34,12 @@ if (typeof zoom === 'undefined') {
         $('#main-drag-handle').height($('body').height() / zoom.scale);
 
         var unscale = 1 / zoom.scale;
-        var resetLeft = $('#main').position().left;
-        var resetTop = $('#main').position().top;
+        var resetLeft = 0 - $('#main').position().left;
+        var resetTop = 0 - $('#main').position().top;
 
-        $('#main-drag-handle').css({top: resetTop, left: resetLeft});
+        console.log(resetTop, resetLeft);
+        $('#main-drag-handle').css('top', resetTop);
+        $('#main-drag-handle').css('left', resetLeft);
       }
     });
 
