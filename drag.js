@@ -13,6 +13,10 @@ if (typeof zoom === 'undefined') {
     $('#main-drag-handle').css({ left: 0, top: 0 });
   }
 
+  zoom.afterZoom = function() {
+    resetHandle();
+  }
+
   $(function() {
     $('#main-drag').draggable({
       handle: '#main-drag-handle',

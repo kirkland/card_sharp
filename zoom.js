@@ -1,6 +1,7 @@
 zoom = (function($) {
   var my = {}
   my.scale = 1;
+  my.afterZoom = function() { };
 
   var position = [0, 0];
   var target = [0, 0];
@@ -53,6 +54,8 @@ zoom = (function($) {
     } else {
       setMainScale(my.scale * 0.96);
     }
+
+    my.afterZoom();
   }
 
   function mainDimensions() {
