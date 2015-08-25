@@ -9,6 +9,10 @@ if (typeof zoom === 'undefined') {
 }
 
 (function($, zoom) {
+  function resetHandle() {
+    $('#main-drag-handle').css({ left: 0, top: 0 });
+  }
+
   $(function() {
     $('#main-drag').draggable({
       handle: '#main-drag-handle',
@@ -30,7 +34,7 @@ if (typeof zoom === 'undefined') {
       },
 
       stop: function(event, ui) {
-        $('#main-drag-handle').css({ left: 0, top: 0 });
+        resetHandle();
       }
     });
 
@@ -51,9 +55,7 @@ if (typeof zoom === 'undefined') {
         ui.position.top = newTop;
       },
     });
-  });
 
-  $(function() {
     $('#main-drag, #main-drag-handle').height($('body').height());
     $('#main-drag, #main-drag-handle').width($('body').width());
   });
