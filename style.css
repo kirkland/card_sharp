@@ -1,3 +1,7 @@
+body {
+  font-family: 'Open Sans', 'Helvetica', sans-serif;
+}
+
 #main {
   position: absolute;
 }
@@ -8,15 +12,36 @@
 }
 
 #main-drag-handle {
-  border: 5px orange solid;
+  background: #3CA4C7;
   position: fixed;
 }
 
 .card {
+  background: #FAF9F5;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
   position: absolute;
-  height: 100px;
-  width: 100px;
-  border: 1px red solid;
+  min-height: 100px;
+  width: 200px;
+}
+
+.card .body {
+  padding: 20px 10px;
+}
+
+.card .title {
+  border-bottom: 1px solid #C4AFAF;
+  padding: 10px;
+}
+
+.card h1 {
+  color: #A7A7A7;
+  font-size: 20px;
+  font-weight: light;
+}
+
+.card p {
+  font-family: 15px;
+  line-height: 22px;
 }
 
 #card1 {
