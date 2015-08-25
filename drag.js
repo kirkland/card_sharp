@@ -30,16 +30,7 @@ if (typeof zoom === 'undefined') {
       },
 
       stop: function(event, ui) {
-        $('#main-drag-handle').width($('body').width() / zoom.scale);
-        $('#main-drag-handle').height($('body').height() / zoom.scale);
-
-        var unscale = 1 / zoom.scale;
-        var resetLeft = 0 - $('#main').position().left;
-        var resetTop = 0 - $('#main').position().top;
-
-        console.log(resetTop, resetLeft);
-        $('#main-drag-handle').css('top', resetTop);
-        $('#main-drag-handle').css('left', resetLeft);
+        $('#main-drag-handle').css({ left: 0, top: 0 });
       }
     });
 
