@@ -10,7 +10,18 @@ if (typeof zoom === 'undefined') {
 
 (function($, zoom) {
   function resetHandle() {
-    $('#main-drag-handle').css({ left: 0, top: 0 });
+    var handle = $('#main-drag-handle');
+    var body = $('body');
+    var main = $('#main');
+
+    var resetZoom = 1 / zoom.scale;
+    var resetHeight = body.height() * resetZoom;
+    var resetWidth = body.width() * resetZoom;
+
+    var resetLeft = 0 - main.position().left * resetZoom;
+    var resetTop = 0 - main.position().top * resetZoom;
+
+    handle.css({ left: resetLeft, top: resetTop, height: resetHeight, width: resetWidth });
   }
 
   zoom.afterZoom = function() {
