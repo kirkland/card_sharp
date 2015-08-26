@@ -1,5 +1,6 @@
 body {
   font-family: 'Open Sans', 'Helvetica', sans-serif;
+  background: #3CA4C7;
 }
 
 #main {
@@ -11,7 +12,6 @@ body {
 }
 
 #main-drag-handle {
-  background: #3CA4C7;
   position: fixed;
 }
 
