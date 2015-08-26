@@ -24,9 +24,9 @@ if (typeof zoom === 'undefined') {
     handle.css({ left: resetLeft, top: resetTop, height: resetHeight, width: resetWidth });
   }
 
-  zoom.afterZoom = function() {
+  zoom.afterZoom(function() {
     resetHandle();
-  }
+  });
 
   $(function() {
     $('#main-drag').draggable({
