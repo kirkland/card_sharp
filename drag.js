@@ -1,6 +1,3 @@
-// Fix draggable issue for scaled elements
-// http://stackoverflow.com/questions/10212683/jquery-drag-resize-with-css-transform-scale
-
 // Must load zoom before drag
 
 // Necessary if zoom is not being used
