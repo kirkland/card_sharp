@@ -5,12 +5,14 @@
  * For more information visit http://nicedit.com/
  * Do not remove this copyright message
  */
+
 var bkExtend = function(){
 	var args = arguments;
 	if (args.length == 1) args = [this, args[0]];
 	for (var prop in args[1]) args[0][prop] = args[1][prop];
 	return args[0];
 };
+
 function bkClass() { }
 bkClass.prototype.construct = function() {};
 bkClass.extend = function(def) {
