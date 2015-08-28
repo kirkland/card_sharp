@@ -1,11 +1,25 @@
 $(function() {
-  var editor = new nicEditor();
+  var nic_editor = new nicEditor();
+  var currentlyEditingCard;
+
+  function removeCurrentEditor() {
+    if ( typeof currentlyEditingCard !== 'undefined' ) {
+      currentlyEditingCard.draggable({ disabled: false });
+      nic_editor.removeInstance('editor');
+      currentlyEditingCard.find('#editor').removeAttr('id');
+    }
+  }
 
   $('.card').dblclick(function(event) {
-    editor.removeInstance('editor');
-    $('#editor').removeAttr('id');
-    $(event.currentTarget).find('.body').attr('id', 'editor');
-    $(event.currentTarget).draggable({ disabled: true });
-    editor.addInstance('editor');
+    removeCurrentEditor();
+
+    currentlyEditingCard = $(event.currentTarget);
+    currentlyEditingCard.find('.body').attr('id', 'editor');
+    currentlyEditingCard.draggable({ disabled: true });
+    nic_editor.addInstance('editor');
+  });
+
+  $('#main-drag-handle').click(function() {
+    removeCurrentEditor();
   });
 });
