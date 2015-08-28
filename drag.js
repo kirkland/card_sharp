@@ -26,9 +26,7 @@ if (typeof zoom === 'undefined') {
   });
 
   $(function() {
-    $('#main-drag').draggable({
-      handle: '#main-drag-handle',
-
+    var commonDraggableOptions = {
       start: function(event, ui) {
         ui.position.left = 0;
         ui.position.top = 0;
@@ -48,25 +46,17 @@ if (typeof zoom === 'undefined') {
       stop: function(event, ui) {
         resetHandle();
       }
-    });
+    };
 
-    $('.card').draggable({
-      start: function(event, ui) {
-        ui.position.left = 0;
-        ui.position.top = 0;
-      },
+    $('.card').draggable(commonDraggableOptions);
 
-      drag: function(event, ui) {
-        var changeLeft = ui.position.left - ui.originalPosition.left;
-        var newLeft = ui.originalPosition.left + changeLeft / zoom.scale;
+    $('#main-drag').draggable($.extend($.extend({}, commonDraggableOptions), {
+      handle: '#main-drag-handle',
 
-        var changeTop = ui.position.top - ui.originalPosition.top;
-        var newTop = ui.originalPosition.top + changeTop / zoom.scale;
-
-        ui.position.left = newLeft;
-        ui.position.top = newTop;
-      },
-    });
+      stop: function(event, ui) {
+        resetHandle();
+      }
+    }));
 
     $('#main-drag, #main-drag-handle').height($('body').height());
     $('#main-drag, #main-drag-handle').width($('body').width());
