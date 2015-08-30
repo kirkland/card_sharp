@@ -1,9 +1,12 @@
-// Must load zoom before drag
+// Must load zoom before this
 
 // Necessary if zoom is not being used
 if (typeof zoom === 'undefined') {
   zoom = { scale: 1 };
 }
+
+// Global variable
+highestZIndex = 0;
 
 (function($, zoom) {
   function resetHandle() {
@@ -48,7 +51,17 @@ if (typeof zoom === 'undefined') {
       }
     };
 
-    $('.card').draggable(commonDraggableOptions);
+    $('.card').click(function(handler) {
+      highestZIndex += 1;
+      $(handler.currentTarget).zIndex(highestZIndex);
+    });
+
+    $('.card').draggable($.extend($.extend({}, commonDraggableOptions), {
+      start: function(event, ui) {
+        highestZIndex += 1;
+        $(event.target).zIndex(highestZIndex);
+      }
+    }));
 
     $('#main-drag').draggable($.extend($.extend({}, commonDraggableOptions), {
       handle: '#main-drag-handle',
