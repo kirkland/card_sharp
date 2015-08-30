@@ -1,25 +1,21 @@
 $(function() {
-  var nic_editor = new nicEditor();
   var currentlyEditingCard;
 
-  function removeCurrentEditor() {
+  function disableCurrentEditor() {
     if ( typeof currentlyEditingCard !== 'undefined' ) {
       currentlyEditingCard.draggable({ disabled: false });
-      nic_editor.removeInstance('editor');
-      currentlyEditingCard.find('#editor').removeAttr('id');
     }
   }
 
   $('.card').dblclick(function(event) {
-    removeCurrentEditor();
+    disableCurrentEditor();
 
     currentlyEditingCard = $(event.currentTarget);
-    currentlyEditingCard.find('.body').attr('id', 'editor');
+    currentlyEditingCard.get(0).focus();
     currentlyEditingCard.draggable({ disabled: true });
-    nic_editor.addInstance('editor');
   });
 
   $('#main-drag-handle').click(function() {
-    removeCurrentEditor();
+    disableCurrentEditor()
   });
 });
