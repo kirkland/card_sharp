@@ -1,21 +1,51 @@
-$(function() {
-  var currentlyEditingCard;
+// Dependencies: drag
 
+(function($, drag) {
   function disableCurrentEditor() {
     if ( typeof currentlyEditingCard !== 'undefined' ) {
       currentlyEditingCard.draggable({ disabled: false });
     }
   }
 
-  $('.card').dblclick(function(event) {
-    disableCurrentEditor();
+  function initializeCardEditing(selector) {
+    selector.dblclick(function(event) {
+      disableCurrentEditor();
 
-    currentlyEditingCard = $(event.currentTarget);
-    currentlyEditingCard.get(0).focus();
-    currentlyEditingCard.draggable({ disabled: true });
-  });
+      currentlyEditingCard = $(event.currentTarget);
+      currentlyEditingCard.get(0).focus();
+      currentlyEditingCard.draggable({ disabled: true });
+    });
+  }
 
-  $('#main-drag-handle').click(function() {
-    disableCurrentEditor()
+  var _newCardTop = 10;
+  var _newCardLeft = 10;
+
+  function newCardTop() {
+    _newCardTop += 10;
+    return _newCardTop;
+  }
+
+  function newCardLeft() {
+    _newCardLeft += 10;
+    return _newCardLeft;
+  }
+
+  $(function() {
+    var currentlyEditingCard;
+
+    $('#menu a').click(function(event) {
+      event.preventDefault()
+      var newCard = $('#prototype-card').clone().attr('id', null).removeClass('hidden').appendTo($('#main-drag'));
+      drag.initializeCardDragging(newCard);
+      initializeCardEditing(newCard);
+      newCard.css('top', newCardTop() + 'px');
+      newCard.css('left', newCardLeft() + 'px');
+    });
+
+    $('#main-drag-handle').click(function() {
+      disableCurrentEditor()
+    });
+
+    initializeCardEditing($('.card'));
   });
-});
+}($, drag));

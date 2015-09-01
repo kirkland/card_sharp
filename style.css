@@ -3,6 +3,10 @@ body {
   background: #3CA4C7;
 }
 
+#menu {
+  background: white;
+}
+
 #main {
   position: absolute;
 }
@@ -56,4 +60,13 @@ body {
 #card3 {
   left: 300px;
   top: 300px;
+}
+
+.hidden {
+  display: none;
+}
+
+.card {
+  left: 10px;
+  top: 10px;
 }
