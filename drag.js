@@ -30,11 +30,6 @@ highestZIndex = 0;
 
   $(function() {
     var commonDraggableOptions = {
-      start: function(event, ui) {
-        ui.position.left = 0;
-        ui.position.top = 0;
-      },
-
       drag: function(event, ui) {
         var changeLeft = ui.position.left - ui.originalPosition.left;
         var newLeft = ui.originalPosition.left + changeLeft / zoom.scale;
@@ -58,6 +53,8 @@ highestZIndex = 0;
 
     $('.card').draggable($.extend($.extend({}, commonDraggableOptions), {
       start: function(event, ui) {
+        ui.position.left = 0;
+        ui.position.top = 0;
         highestZIndex += 1;
         $(event.target).zIndex(highestZIndex);
       }
@@ -65,6 +62,11 @@ highestZIndex = 0;
 
     $('#main-drag').draggable($.extend($.extend({}, commonDraggableOptions), {
       handle: '#main-drag-handle',
+
+      start: function(event, ui) {
+        ui.position.left = 0;
+        ui.position.top = 0;
+      },
 
       stop: function(event, ui) {
         resetHandle();
