@@ -6,4 +6,4 @@ requirejs.config({
   }
 });
 
-requirejs(['app/zoom', 'app/drag', 'app/edit']);
+requirejs(['app/zoom', 'app/drag', 'app/edit', 'app/tutorial']);

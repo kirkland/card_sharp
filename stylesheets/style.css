@@ -47,21 +47,6 @@ body {
   line-height: 22px;
 }
 
-#card1 {
-  left: 100px;
-  top: 100px;
-}
-
-#card2 {
-  left: 300px;
-  top: 100px;
-}
-
-#card3 {
-  left: 300px;
-  top: 300px;
-}
-
 .hidden {
   display: none;
 }

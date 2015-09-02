@@ -1,4 +1,6 @@
 define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
+  var my = {};
+
   function disableCurrentEditor() {
     if ( typeof currentlyEditingCard !== 'undefined' ) {
       currentlyEditingCard.draggable({ disabled: false });
@@ -28,16 +30,22 @@ define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
     return _newCardLeft;
   }
 
+  my.addCard = function() {
+    var newCard = $('#prototype-card').clone().attr('id', null).removeClass('hidden').appendTo($('#main-drag'));
+    drag.initializeCardDragging(newCard);
+    initializeCardEditing(newCard);
+    newCard.css('top', newCardTop() + 'px');
+    newCard.css('left', newCardLeft() + 'px');
+
+    return newCard;
+  }
+
   $(function() {
     var currentlyEditingCard;
 
     $('#menu a').click(function(event) {
       event.preventDefault()
-      var newCard = $('#prototype-card').clone().attr('id', null).removeClass('hidden').appendTo($('#main-drag'));
-      drag.initializeCardDragging(newCard);
-      initializeCardEditing(newCard);
-      newCard.css('top', newCardTop() + 'px');
-      newCard.css('left', newCardLeft() + 'px');
+      my.addCard();
     });
 
     $('#main-drag-handle').click(function() {
@@ -46,4 +54,6 @@ define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
 
     initializeCardEditing($('.card'));
   });
+
+  return my;
 });
