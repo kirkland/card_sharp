@@ -36,6 +36,8 @@ define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
     initializeCardEditing(newCard);
     newCard.css('top', newCardTop() + 'px');
     newCard.css('left', newCardLeft() + 'px');
+    highestZIndex += 1;
+    newCard.zIndex(highestZIndex);
 
     return newCard;
   }
