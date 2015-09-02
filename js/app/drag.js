@@ -15,7 +15,7 @@ define(['jquery', 'jquery_ui', 'app/zoom'], function($, unused, zoom) {
     var resetWidth = body.width() * resetZoom;
 
     var resetLeft = 0 - main.position().left * resetZoom;
-    var resetTop = (0 - main.position().top + menuHeight) * resetZoom;
+    var resetTop = (main.position().top + menuHeight) * resetZoom;
 
     handle.css({ left: resetLeft, top: resetTop, height: resetHeight, width: resetWidth });
   }
