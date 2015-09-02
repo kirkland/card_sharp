@@ -1,6 +1,4 @@
-// Dependencies: drag
-
-(function($, drag) {
+define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
   function disableCurrentEditor() {
     if ( typeof currentlyEditingCard !== 'undefined' ) {
       currentlyEditingCard.draggable({ disabled: false });
@@ -48,4 +46,4 @@
 
     initializeCardEditing($('.card'));
   });
-}($, drag));
+});

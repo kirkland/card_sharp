@@ -1,4 +1,4 @@
-zoom = (function($) {
+define(['jquery'], function($) {
   var my = {}
   var afterZoomCallbacks = [];
   my.scale = 1;
@@ -110,4 +110,4 @@ zoom = (function($) {
   });
 
   return my;
-}($));
+});

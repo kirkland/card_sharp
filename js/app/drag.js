@@ -1,14 +1,7 @@
-// Must load zoom before this
-
-// Necessary if zoom is not being used
-if (typeof zoom === 'undefined') {
-  zoom = { scale: 1 };
-}
-
 // Global variable
 highestZIndex = 0;
 
-drag = (function($, zoom) {
+define(['jquery', 'jquery_ui', 'app/zoom'], function($, unused, zoom) {
   var my = {};
 
   function resetHandle() {
@@ -85,4 +78,4 @@ drag = (function($, zoom) {
   });
 
   return my;
-}($, zoom));
+});
