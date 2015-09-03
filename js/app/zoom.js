@@ -1,13 +1,19 @@
 define(['jquery'], function($) {
+  // Public
+
   var my = {}
-  var afterZoomCallbacks = [];
   my.scale = 1;
+
   my.afterZoom = function(callback) {
     afterZoomCallbacks.push(callback);
   };
 
-  var position = [0, 0];
-  var target = [0, 0];
+  // Private
+
+  var mainLeftOffset = 0;
+  var mainTopOffset = 0;
+  var zoomTarget = [0, 0];
+  var afterZoomCallbacks = [];
 
   function subtractArrays(firstArray, secondArray) {
     var i = 0;
@@ -43,7 +49,7 @@ define(['jquery'], function($) {
   }
 
   function updateMainTransform() {
-    $('#main').css({ transform: 'scale(' + my.scale + ')', left: position[0] + 'px', top: position[1] + 'px' });
+    $('#main').css({ transform: 'scale(' + my.scale + ')', left: mainLeftOffset + 'px', top: mainTopOffset + 'px' });
   }
 
   function setMainScale(newMainScale) {
@@ -73,7 +79,7 @@ define(['jquery'], function($) {
   }
 
   function mainToTarget() {
-    return subtractArrays(target, mainPosition());
+    return subtractArrays(zoomTarget, mainPosition());
   }
 
   function percentMainToTarget() {
@@ -81,7 +87,7 @@ define(['jquery'], function($) {
   }
 
   function zoomAndPosition(directionIn, targetX, targetY) {
-    target = [targetX, targetY];
+    zoomTarget = [targetX, targetY];
 
     var startingPercentMainToTarget = percentMainToTarget();
 
@@ -91,8 +97,8 @@ define(['jquery'], function($) {
     var currentMainToTarget = mainToTarget();
 
     var addToPosition = subtractArrays(currentMainToTarget, desiredMainToTarget);
-    position[0] += addToPosition[0];
-    position[1] += addToPosition[1];
+    mainLeftOffset += addToPosition[0];
+    mainTopOffset += addToPosition[1];
 
     updateMainTransform();
   }
