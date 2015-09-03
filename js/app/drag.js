@@ -2,7 +2,26 @@
 highestZIndex = 0;
 
 define(['jquery', 'jquery_ui', 'app/zoom'], function($, unused, zoom) {
+  // Public
   var my = {};
+
+  my.initializeCardDragging = function(selector) {
+    selector.click(function(handler) {
+      highestZIndex += 1;
+      $(handler.currentTarget).zIndex(highestZIndex);
+    });
+
+    selector.draggable($.extend($.extend({}, commonDraggableOptions), {
+      start: function(event, ui) {
+        ui.position.left = 0;
+        ui.position.top = 0;
+        highestZIndex += 1;
+        $(event.target).zIndex(highestZIndex);
+      }
+    }));
+  }
+
+  // Private
 
   function resetHandle() {
     var handle = $('#main-drag-handle');
@@ -36,22 +55,6 @@ define(['jquery', 'jquery_ui', 'app/zoom'], function($, unused, zoom) {
       resetHandle();
     }
   };
-
-  my.initializeCardDragging = function(selector) {
-    selector.click(function(handler) {
-      highestZIndex += 1;
-      $(handler.currentTarget).zIndex(highestZIndex);
-    });
-
-    selector.draggable($.extend($.extend({}, commonDraggableOptions), {
-      start: function(event, ui) {
-        ui.position.left = 0;
-        ui.position.top = 0;
-        highestZIndex += 1;
-        $(event.target).zIndex(highestZIndex);
-      }
-    }));
-  }
 
   $(function() {
     zoom.afterZoom(function() {
