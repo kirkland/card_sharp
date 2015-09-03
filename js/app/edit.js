@@ -1,5 +1,25 @@
 define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
+  // Public
+
   var my = {};
+
+  my.addCard = function() {
+    var newCard = $('#prototype-card').clone().attr('id', null).removeClass('hidden').appendTo($('#main-drag'));
+    drag.initializeCardDragging(newCard);
+    initializeCardEditing(newCard);
+    newCard.css('top', newCardTop() + 'px');
+    newCard.css('left', newCardLeft() + 'px');
+    highestZIndex += 1;
+    newCard.zIndex(highestZIndex);
+
+    return newCard;
+  }
+
+  // Private
+
+  var _newCardLeft = 10;
+  var _newCardTop = 10;
+  var currentlyEditingCard;
 
   function disableCurrentEditor() {
     if ( typeof currentlyEditingCard !== 'undefined' ) {
@@ -17,34 +37,17 @@ define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
     });
   }
 
-  var _newCardTop = 10;
-  var _newCardLeft = 10;
+  function newCardLeft() {
+    _newCardLeft += 10;
+    return _newCardLeft;
+  }
 
   function newCardTop() {
     _newCardTop += 10;
     return _newCardTop;
   }
 
-  function newCardLeft() {
-    _newCardLeft += 10;
-    return _newCardLeft;
-  }
-
-  my.addCard = function() {
-    var newCard = $('#prototype-card').clone().attr('id', null).removeClass('hidden').appendTo($('#main-drag'));
-    drag.initializeCardDragging(newCard);
-    initializeCardEditing(newCard);
-    newCard.css('top', newCardTop() + 'px');
-    newCard.css('left', newCardLeft() + 'px');
-    highestZIndex += 1;
-    newCard.zIndex(highestZIndex);
-
-    return newCard;
-  }
-
   $(function() {
-    var currentlyEditingCard;
-
     $('#menu a').click(function(event) {
       event.preventDefault()
       my.addCard();
