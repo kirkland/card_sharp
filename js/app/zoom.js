@@ -63,11 +63,6 @@ define(['jquery'], function($) {
     } else {
       setMainScale(my.scale * 0.96);
     }
-
-    var i;
-    for ( i = 0; i < afterZoomCallbacks.length; i++ ) {
-      afterZoomCallbacks[i].call();
-    }
   }
 
   function mainDimensions() {
@@ -101,6 +96,11 @@ define(['jquery'], function($) {
     mainTopOffset += addToPosition[1];
 
     updateMainTransform();
+
+    var i;
+    for ( i = 0; i < afterZoomCallbacks.length; i++ ) {
+      afterZoomCallbacks[i].call();
+    }
   }
 
   $(function() {
