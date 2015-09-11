@@ -22,36 +22,26 @@ body {
 .card {
   background: #FAF9F5;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  height: 150px;
   position: absolute;
-  min-height: 100px;
-  width: 200px;
+  width: 250px;
 }
 
 .card .body {
-  padding: 20px 10px;
-}
-
-.card .title {
-  border-bottom: 1px solid #C4AFAF;
-  padding: 10px;
-}
-
-.card h1 {
-  color: #A7A7A7;
-  font-size: 20px;
-  font-weight: light;
+  padding: 5px;
 }
 
 .card p {
-  font-family: 15px;
-  line-height: 22px;
+  font-size: 12px;
+}
+
+.card .body p:first-child {
+  border-bottom: 1px solid #C4AFAF;
+  font-weight: bold;
+  margin-bottom: 5px;
+  padding-bottom: 2px;
 }
 
 .hidden {
   display: none;
-}
-
-.card {
-  left: 10px;
-  top: 10px;
 }
