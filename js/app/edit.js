@@ -42,12 +42,29 @@ define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
     card.get(0).focus();
   }
 
+  function activeAndNotEditing() {
+    return activeCard().length > 0 && activeCard().attr('contenteditable') !== 'true';
+  }
+
+  function deleteActiveCard() {
+    $('.active-card').remove();
+  }
+
   function initializeCardEditing(selector) {
     selector.click(function(event) {
       if ( $(event.currentTarget).hasClass('active-card') ) {
         editCard($(event.currentTarget));
       } else {
         activateCard($(event.currentTarget));
+      }
+    });
+
+    $(document).keyup(function(e) {
+      if ( e.which === 68 ) { // letter d
+        if ( activeAndNotEditing() ) {
+          e.preventDefault();
+          deleteActiveCard();
+        }
       }
     });
   }
