@@ -21,6 +21,7 @@ body {
 
 .card {
   background: #FAF9F5;
+  border: 1px solid black;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
   height: 150px;
   position: absolute;
@@ -40,6 +41,10 @@ body {
   font-weight: bold;
   margin-bottom: 5px;
   padding-bottom: 2px;
+}
+
+.active-card {
+  border: 1px solid yellow;
 }
 
 .hidden {

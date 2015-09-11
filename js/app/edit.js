@@ -19,21 +19,36 @@ define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
 
   var _newCardLeft = 10;
   var _newCardTop = 10;
-  var currentlyEditingCard;
 
-  function disableCurrentEditor() {
-    if ( typeof currentlyEditingCard !== 'undefined' ) {
-      currentlyEditingCard.draggable({ disabled: false });
-    }
+  function activeCard() {
+    return $('.active-card');
+  }
+
+  function activateCard(card) {
+    deactiveCard();
+
+    card.addClass('active-card');
+    activeCard().draggable({ disabled: true });
+  }
+
+  function deactiveCard() {
+    activeCard().draggable({ disabled: false });
+    activeCard().attr('contenteditable', false);
+    activeCard().removeClass('active-card');
+  }
+
+  function editCard(card) {
+    card.attr('contenteditable', true);
+    card.get(0).focus();
   }
 
   function initializeCardEditing(selector) {
-    selector.dblclick(function(event) {
-      disableCurrentEditor();
-
-      currentlyEditingCard = $(event.currentTarget);
-      currentlyEditingCard.get(0).focus();
-      currentlyEditingCard.draggable({ disabled: true });
+    selector.click(function(event) {
+      if ( $(event.currentTarget).hasClass('active-card') ) {
+        editCard($(event.currentTarget));
+      } else {
+        activateCard($(event.currentTarget));
+      }
     });
   }
 
@@ -54,7 +69,7 @@ define(['jquery', 'jquery_ui', 'app/drag'], function($, unused, drag) {
     });
 
     $('#main-drag-handle').click(function() {
-      disableCurrentEditor()
+      deactiveCard()
     });
 
     initializeCardEditing($('.card'));
